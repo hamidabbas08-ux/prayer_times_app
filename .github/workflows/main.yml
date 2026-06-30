@@ -34,3 +34,10 @@ jobs:
 
     - name: Build AAB
       run: flutter build appbundle --release
+
+    # یہ اسٹیپ آپ کو گٹ ہب سے فائل ڈاؤن لوڈ کرنے کا آپشن دے گا
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: prayer-times-app-release
+        path: build/app/outputs/bundle/release/app-release.aab
