@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.prayer_times_app"
+    namespace = "com.hamidabbas.prayertime"
     compileSdk = flutter.compileSdkVersion
 
     compileOptions {
@@ -17,7 +17,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.prayer_times_app"
+        applicationId = "com.hamidabbas.prayertime"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
