@@ -13,6 +13,7 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+// Android Setup
 configure<com.android.build.api.dsl.ApplicationExtension> {
     namespace = "com.example.prayer_times_app"
     compileSdk = flutter.compileSdkVersion
@@ -20,10 +21,6 @@ configure<com.android.build.api.dsl.ApplicationExtension> {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
     }
 
     defaultConfig {
@@ -49,6 +46,13 @@ configure<com.android.build.api.dsl.ApplicationExtension> {
             isMinifyEnabled = false
             isShrinkResources = false
         }
+    }
+}
+
+// Kotlin Setup (اب یہ اینڈرائیڈ بلاک سے باہر ہے تاکہ ایرر نہ آئے)
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
