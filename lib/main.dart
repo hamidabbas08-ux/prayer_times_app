@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       final coordinates = Coordinates(position.latitude, position.longitude);
       final params = CalculationMethod.muslim_world_league.getParameters();
-      params.madhab = (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi);
+      params.madhab = (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : Madhab.shafi));
       final prayerTimes = PrayerTimes.today(coordinates, params);
 
       setState(() {
@@ -282,8 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _isLoading ? null : _determinePosition,
                   icon: _isLoading 
-                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black))
-                      : const Icon(Icons.gps_fixed, color: Colors.black),
+                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      : const Icon(Icons.gps_fixed, color: Colors.white),
                   label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF007AFF),
