@@ -235,19 +235,19 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               Text(
                 _cityName,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Colors.black, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
               Column(
           children: [
             const Column(
           children: [
-            const Text("Your Live GPS Location", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+            const Text("Your Live GPS Location", style: TextStyle(color: Colors.grey, fontSize: 14)),
             const SizedBox(height: 5),
             DropdownButton<String>(
               value: currentFiqh,
               dropdownColor: Colors.white,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+              style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
               items: const [
                 DropdownMenuItem(value: 'shafi', child: Text("Fiqh: Standard / Jumhoor")),
                 DropdownMenuItem(value: 'hanafi', child: Text("Fiqh: Hanafi")),
@@ -265,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
             DropdownButton<String>(
               value: currentFiqh,
               dropdownColor: Colors.white,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+              style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
               items: const [
                 DropdownMenuItem(value: 'shafi', child: Text("Fiqh: Standard / Jumhoor")),
                 DropdownMenuItem(value: 'hanafi', child: Text("Fiqh: Hanafi")),
@@ -291,11 +291,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Column(
                   children: [
-                    Text("Next Prayer: $_nextPrayerName", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text("Next Prayer: $_nextPrayerName", style: const TextStyle(fontSize: 16, color: Colors.grey)),
                     const SizedBox(height: 10),
                     Text(
                       _countdownText,
-                      style: const TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: Colors.white), fontFamily: 'monospace'),
+                      style: const TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: Color(0xFF007AFF), fontFamily: 'monospace'),
                     ),
                   ],
                 ),
@@ -325,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: _isLoading 
                       ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black, fontWeight: FontWeight.bold))
                       : const Icon(Icons.gps_fixed, color: Colors.black, fontWeight: FontWeight.bold),
-                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black)),
+                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF007AFF),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
