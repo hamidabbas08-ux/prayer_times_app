@@ -1,3 +1,4 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,6 +14,24 @@ void playAdhanAlarm() async {
   try {
     await player.setUrl('https://download.quranicaudio.com/adhan/makkah/abdul_basit.mp3');
     await player.play();
+    try {
+      final notificationsPlugin = FlutterLocalNotificationsPlugin();
+      await notificationsPlugin.initialize(
+        const InitializationSettings(android: AndroidInitializationSettings('@mipmap/ic_launcher'))
+      );
+      await notificationsPlugin.show(
+        0,
+        'Prayer Time',
+        'It is time for prayer. Allaho Akbar.',
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'azan_channel', 'Azan Alarms',
+            importance: Importance.max,
+            priority: Priority.high,
+          )
+        )
+      );
+    } catch (e) { print("Notification Error: $e"); }
   } catch (e) {
     print("Azan Player Error: $e");
   }
@@ -33,10 +52,10 @@ class PrayerTimesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Prayer Timings',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: const Color(0xFF007AFF),
-        scaffoldBackgroundColor: const Color(0xFF121212),
-        cardColor: const Color(0xFF1E1E1E),
+        scaffoldBackgroundColor: Colors.white,
+        cardColor: Colors.white,
       ),
       home: const HomeScreen(),
     );
@@ -143,14 +162,14 @@ class _HomeScreenState extends State<HomeScreen> {
     DateTime nextTime;
     String name = "";
 
-    if (now.isBefore(_prayerTimes!.fajr)) { nextTime = _prayerTimes!.fajr; name = "فجر"; }
-    else if (now.isBefore(_prayerTimes!.dhuhr)) { nextTime = _prayerTimes!.dhuhr; name = "ظہر"; }
-    else if (now.isBefore(_prayerTimes!.asr)) { nextTime = _prayerTimes!.asr; name = "عصر"; }
-    else if (now.isBefore(_prayerTimes!.maghrib)) { nextTime = _prayerTimes!.maghrib; name = "مغرب"; }
-    else if (now.isBefore(_prayerTimes!.isha)) { nextTime = _prayerTimes!.isha; name = "عشاء"; }
+    if (now.isBefore(_prayerTimes!.fajr)) { nextTime = _prayerTimes!.fajr; name = "Fajr"; }
+    else if (now.isBefore(_prayerTimes!.dhuhr)) { nextTime = _prayerTimes!.dhuhr; name = "Dhuhr"; }
+    else if (now.isBefore(_prayerTimes!.asr)) { nextTime = _prayerTimes!.asr; name = "Asr"; }
+    else if (now.isBefore(_prayerTimes!.maghrib)) { nextTime = _prayerTimes!.maghrib; name = "Maghrib"; }
+    else if (now.isBefore(_prayerTimes!.isha)) { nextTime = _prayerTimes!.isha; name = "Isha"; }
     else {
       nextTime = _prayerTimes!.fajr.add(const Duration(days: 1));
-      name = "فجر (کل)";
+      name = "Fajr (کل)";
     }
 
     final difference = nextTime.difference(now);
@@ -178,10 +197,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               Text(
                 _cityName,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Colors.white),
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Colors.black),
               ),
               const SizedBox(height: 5),
-              const Text("آپ کی لائیو جی پی ایس لوکیشن", style: TextStyle(color: Colors.grey, fontSize: 14)),
+              const Text("Your Live GPS Location", style: TextStyle(color: Colors.grey, fontSize: 14)),
               
               const SizedBox(height: 40),
               
@@ -194,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Column(
                   children: [
-                    Text("اگلی نماز: $_nextPrayerName", style: const TextStyle(fontSize: 16, color: Colors.grey)),
+                    Text("Next Prayer: $_nextPrayerName", style: const TextStyle(fontSize: 16, color: Colors.grey)),
                     const SizedBox(height: 10),
                     Text(
                       _countdownText,
@@ -208,14 +227,14 @@ class _HomeScreenState extends State<HomeScreen> {
               
               Expanded(
                 child: _prayerTimes == null
-                    ? const Center(child: Text("لوکیشن ریفریش کریں"))
+                    ? const Center(child: Text("Refresh Location"))
                     : ListView(
                         children: [
-                          _buildPrayerRow("فجر", _formatTime(_prayerTimes!.fajr)),
-                          _buildPrayerRow("ظہر", _formatTime(_prayerTimes!.dhuhr)),
-                          _buildPrayerRow("عصر", _formatTime(_prayerTimes!.asr)),
-                          _buildPrayerRow("مغرب", _formatTime(_prayerTimes!.maghrib)),
-                          _buildPrayerRow("عشاء", _formatTime(_prayerTimes!.isha)),
+                          _buildPrayerRow("Fajr", _formatTime(_prayerTimes!.fajr)),
+                          _buildPrayerRow("Dhuhr", _formatTime(_prayerTimes!.dhuhr)),
+                          _buildPrayerRow("Asr", _formatTime(_prayerTimes!.asr)),
+                          _buildPrayerRow("Maghrib", _formatTime(_prayerTimes!.maghrib)),
+                          _buildPrayerRow("Isha", _formatTime(_prayerTimes!.isha)),
                         ],
                       ),
               ),
@@ -226,9 +245,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _isLoading ? null : _determinePosition,
                   icon: _isLoading 
-                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                      : const Icon(Icons.gps_fixed, color: Colors.white),
-                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "لوکیشن ریفریش کریں", style: const TextStyle(fontSize: 16, color: Colors.white)),
+                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black))
+                      : const Icon(Icons.gps_fixed, color: Colors.black),
+                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 16, color: Colors.black)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF007AFF),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -256,8 +275,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(name, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: isCurrent ? const Color(0xFF007AFF) : Colors.white)),
-          Text(time, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: Colors.white)),
+          Text(name, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: isCurrent ? const Color(0xFF007AFF) : Colors.black)),
+          Text(time, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: Colors.black)),
         ],
       ),
     );
