@@ -1,3 +1,4 @@
+String currentFiqh = 'shafi';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -234,10 +235,50 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               Text(
                 _cityName,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Colors.white),
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Colors.black, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
-              const Text("Your Live GPS Location", style: TextStyle(color: Colors.grey, fontSize: 14)),
+              Column(
+          children: [
+            const Column(
+          children: [
+            const Text("Your Live GPS Location", style: TextStyle(color: Colors.grey, fontSize: 14)),
+            const SizedBox(height: 5),
+            DropdownButton<String>(
+              value: currentFiqh,
+              dropdownColor: Colors.white,
+              style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+              items: const [
+                DropdownMenuItem(value: 'shafi', child: Text("Fiqh: Standard / Jumhoor")),
+                DropdownMenuItem(value: 'hanafi', child: Text("Fiqh: Hanafi")),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  currentFiqh = value!;
+                  _refreshPrayerTimes();
+                });
+              },
+            ),
+          ],
+        )
+            const SizedBox(height: 5),
+            DropdownButton<String>(
+              value: currentFiqh,
+              dropdownColor: Colors.white,
+              style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+              items: const [
+                DropdownMenuItem(value: 'shafi', child: Text("Fiqh: Standard / Jumhoor")),
+                DropdownMenuItem(value: 'hanafi', child: Text("Fiqh: Hanafi")),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  currentFiqh = value!;
+                  _refreshPrayerTimes();
+                });
+              },
+            ),
+          ],
+        )
               
               const SizedBox(height: 40),
               
@@ -282,9 +323,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _isLoading ? null : _determinePosition,
                   icon: _isLoading 
-                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                      : const Icon(Icons.gps_fixed, color: Colors.white),
-                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 16, color: Colors.white)),
+                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black, fontWeight: FontWeight.bold))
+                      : const Icon(Icons.gps_fixed, color: Colors.black, fontWeight: FontWeight.bold),
+                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF007AFF),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -312,8 +353,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(name, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: isCurrent ? const Color(0xFF007AFF) : Colors.black)),
-          Text(time, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: Colors.white)),
+          Text(name, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: Colors.white, fontWeight: FontWeight.bold)),
+          Text(time, style: TextStyle(fontSize: 18, fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, color: Colors.black, fontWeight: FontWeight.bold)),
         ],
       ),
     );
