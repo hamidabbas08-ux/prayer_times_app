@@ -1,4 +1,3 @@
-String currentFiqh = 'shafi';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -93,7 +92,7 @@ class PrayerTimesApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: const Color(0xFF007AFF),
         scaffoldBackgroundColor: Colors.white,
-        cardColor: const Color(0xFF1E1E1E),
+        cardColor: Colors.white,
       ),
       home: const HomeScreen(),
     );
@@ -238,47 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               const SizedBox(height: 5),
-              Column(
-          children: [
-            const Column(
-          children: [
-            const Text("Your Live GPS Location", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
-            const SizedBox(height: 5),
-            DropdownButton<String>(
-              value: currentFiqh,
-              dropdownColor: Colors.white,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
-              items: const [
-                DropdownMenuItem(value: 'shafi', child: Text("Fiqh: Standard / Jumhoor")),
-                DropdownMenuItem(value: 'hanafi', child: Text("Fiqh: Hanafi")),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  currentFiqh = value!;
-                  
-                });
-              },
-            ),
-          ],
-        )
-            const SizedBox(height: 5),
-            DropdownButton<String>(
-              value: currentFiqh,
-              dropdownColor: Colors.white,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
-              items: const [
-                DropdownMenuItem(value: 'shafi', child: Text("Fiqh: Standard / Jumhoor")),
-                DropdownMenuItem(value: 'hanafi', child: Text("Fiqh: Hanafi")),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  currentFiqh = value!;
-                  
-                });
-              },
-            ),
-          ],
-        )
+              const Text("Your Live GPS Location", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
               
               const SizedBox(height: 40),
               
@@ -295,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 10),
                     Text(
                       _countdownText,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white), fontFamily: 'monospace'),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ],
                 ),
@@ -323,9 +282,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _isLoading ? null : _determinePosition,
                   icon: _isLoading 
-                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black, fontWeight: FontWeight.bold))
-                      : const Icon(Icons.gps_fixed, color: Colors.black, fontWeight: FontWeight.bold),
-                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black)),
+                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black))
+                      : const Icon(Icons.gps_fixed, color: Colors.black),
+                  label: Text(_isLoading ? "لوکیشن مل رہی ہے..." : "Refresh Location", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF007AFF),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
