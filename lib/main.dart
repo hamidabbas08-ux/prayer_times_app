@@ -17,15 +17,18 @@ void playAdhanAlarm() async {
     try {
       final notificationsPlugin = FlutterLocalNotificationsPlugin();
       await notificationsPlugin.initialize(
-        const InitializationSettings(android: AndroidInitializationSettings('@mipmap/ic_launcher'))
+        initializationSettings: const InitializationSettings(
+          android: AndroidInitializationSettings('@mipmap/ic_launcher')
+        )
       );
       await notificationsPlugin.show(
-        0,
-        'Prayer Time',
-        'It is time for prayer. Allaho Akbar.',
-        const NotificationDetails(
+        id: 0,
+        title: 'Prayer Time',
+        body: 'It is time for prayer. Allaho Akbar.',
+        notificationDetails: const NotificationDetails(
           android: AndroidNotificationDetails(
-            'azan_channel', 'Azan Alarms',
+            channelId: 'azan_channel',
+            channelName: 'Azan Alarms',
             importance: Importance.max,
             priority: Priority.high,
           )
