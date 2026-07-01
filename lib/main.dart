@@ -1,3 +1,4 @@
+String currentFiqh = 'shafi';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       final coordinates = Coordinates(position.latitude, position.longitude);
       final params = CalculationMethod.muslim_world_league.getParameters();
-      params.madhab = (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : Madhab.shafi));
+      params.madhab = (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : Madhab.shafi)) : (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : Madhab.shafi)) : (currentFiqh == 'hanafi' ? (currentFiqh == 'hanafi' ? Madhab.hanafi : Madhab.shafi) : Madhab.shafi)));
       final prayerTimes = PrayerTimes.today(coordinates, params);
 
       setState(() {
@@ -234,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               Text(
                 _cityName,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
               const Text("Your Live GPS Location", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
