@@ -16,21 +16,20 @@ void playAdhanAlarm() async {
     await player.play();
     try {
       final notificationsPlugin = FlutterLocalNotificationsPlugin();
-      // پوزیشن کے مطابق انیشلائز کرنا
       await notificationsPlugin.initialize(
         const InitializationSettings(
           android: AndroidInitializationSettings('@mipmap/ic_launcher')
         )
       );
-      // شو کے اندر مکسڈ سنٹیکس استعمال کرنا
+      // ۱۰۰٪ پکا پوزیشنیل سنٹیکس (بدون نام)
       await notificationsPlugin.show(
-        id: 0,
-        title: 'Prayer Time',
-        body: 'It is time for prayer. Allaho Akbar.',
-        notificationDetails: const NotificationDetails(
+        0,                                    // 1. id
+        'Prayer Time',                        // 2. title
+        'It is time for prayer. Allaho Akbar.', // 3. body
+        const NotificationDetails(            // 4. notificationDetails
           android: AndroidNotificationDetails(
-            'azan_channel', // پہلی پوزیشن (Channel ID)
-            'Azan Alarms',  // دوسری پوزیشن (Channel Name)
+            'azan_channel', 
+            'Azan Alarms',  
             importance: Importance.max,
             priority: Priority.high,
           )
